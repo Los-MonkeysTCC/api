@@ -46,7 +46,7 @@ namespace ApiTcc.Controllers
 
 
             [HttpPut]
-            public IActionResult Alterar (Professor AlterarUsuario)
+            public IActionResult Alterar (Professor AlterarUsuario, List<Professor> usuarios)
         {
                 Professor usuarioAlterado = usuarios.Find(user => user.Id == AlterarUsuario.Id); //procurando/indentificando/encontrando o professor atráves do id para que possamos fazer as devidas alterações requisitadas que estão dentro da variavel "AlterarUsuario" passando para a variavel "usuarioAlterado" que criamos para fazer a indentificação do objeto e as alterações
                 usuarioAlterado.Id = AlterarUsuario.Id;

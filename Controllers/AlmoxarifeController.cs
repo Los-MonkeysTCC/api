@@ -2,6 +2,7 @@ using ApiTcc.Data;
 using ApiTcc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace ApiTcc.Controllers
 {
@@ -20,22 +21,9 @@ namespace ApiTcc.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AdicionarItem (Item ItemAdicionado)
-        {
-            try
-            {
-                List<Item> lista = await _context.Itens.ToListAsync();
-                await _context.Itens.AddAsync(ItemAdicionado);
-                return Ok (lista);
-                
-            }
+   
+       
 
-            catch (Exception ex)
-            {
-                
-                return BadRequest(ex.Message);
-            }
-        }
+       
     }
 }

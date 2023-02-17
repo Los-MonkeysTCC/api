@@ -16,24 +16,54 @@ namespace ApiTcc.Controllers
     {
         private readonly DataContext _context;
         
-        public ItemController(DataContext context)
+        public ItemController(DataContext dataContext)
         {
-            _context = context;
+            _context = dataContext;
         }
 
-       [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> Add(Item novoItem)
+        {
+            try{
+                await _context.Itens.AddAsync(novoItem);
+                await _context.SaveChangesAsync();
 
-       public async Task <IActionResult> Get ()
-       {
-            try
-            {
-                List<Item> lista = await _context.Itens.ToListAsync();
-                return Ok (lista);
+                return Ok(novoItem.Id);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-       }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(Item novoItem)
+        {
+            try{
+                _context.Itens.Update(novoItem);
+                int linhasAfetadas = await _context.SaveChangesAsync();
+
+                return Ok(linhasAfetadas);
+            }
+            catch (Exception ex)
+            {
+                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> Get()
+        {
+            try{
+             
+               List<Item> lista = await _context.Itens.ToListAsync();
+               return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                 return BadRequest(ex.Message);
+            }
+        }
+       
     }
 }
